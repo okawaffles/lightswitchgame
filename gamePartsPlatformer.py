@@ -106,6 +106,7 @@ class Button():
     def draw(self, screen: pygame.surface, groups: dict) -> None:
         blue = pygame.Color(3, 36, 252, 150)
         green = pygame.Color(49, 214, 101, 150)
+        self.lastUpdatedGroups = groups
 
         if (self.controlledBy == -1):
             #groups are disabled
@@ -128,11 +129,24 @@ class Button():
 
     def checkCollision(self, player: Player) -> bool:
         try:
-            if self.base.colliderect(player.getRect()):
-                self.activated = True
-                return True
-            else: 
+            if (self.controlledBy == -1):
+                # groups are disabled
+                if self.base.colliderect(player.getRect()):
+                    self.activated = True
+                    return True
+                else: 
+                    return False
+            elif (self.lastUpdatedGroups[self.controlledBy]):
+                # groups are enabled
+                if self.base.colliderect(player.getRect()):
+                    self.activated = True
+                    return True
+                else: 
+                    return False
+            else:
+                # groups are enabled and it did not pass
                 return False
+        # it failed
         except Exception as err:
             print(f'(debug) (gamePartsPlatformer/Button/checkCollision) Error: {err}')
             return False
@@ -156,6 +170,20 @@ class ImageObject():
     def draw(self, screen, groups: dict) -> None:
         self.image = pygame.transform.scale(self.image, (self.w, self.h))
         screen.blit(self.image, (self.x, self.y))
+        pass
+
+class DeathObject():
+    def __init__(self, x, y, w, h) -> None:
+        self.x = x
+        self.y = y
+        self.w = w
+        self.h = h
+        self.base = pygame.Rect(x,y,w,h)
+        pass
+
+    def draw(self, screen: pygame.surface, groups: dict):
+        red = pygame.Color(207, 41, 41, 255)
+        pygame.draw.rect(screen, red, self.base)
         pass
 
 # catch if the user starts the wrong file

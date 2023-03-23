@@ -68,7 +68,7 @@ gravity = 0.5  # force of gravity
 max_vel_y = 10  # maximum vertical velocity
 collides = False
 levels = Levels()
-levelId = 1
+levelId = 7
 groupEnabled = 0 # i dont know if this is required
 currentLevel = levels.get(levelId)
 currentLevelGroups = [ # allow for five button groups
@@ -291,6 +291,8 @@ while True:
             time.sleep(1/60)
 
         player.updatePosition(0, 480) # kill the player to reset their spawn
+
+    
 
     # keep last. locks to 60fps to prevent over-using cpu
     time.sleep(1/60)

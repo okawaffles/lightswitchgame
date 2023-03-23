@@ -2,7 +2,7 @@
 # The levels are stored as object data in a dictionary inside a class.
 # This allows for easy data access
 
-from gamePartsPlatformer import Platform, Wall, Text, Button, ImageObject
+from gamePartsPlatformer import Platform, Wall, Text, Button, ImageObject, DeathObject
 
 class Levels():
     def __init__(self) -> None:
@@ -269,21 +269,29 @@ class Levels():
                 'WHITE':{
                     'platforms':[
                         # a half white platform in the center
-                        Platform(100, 240, 440, 10, 1),
+                        Platform(100, 240, 220, 10, 1),
                         # some higher platforms
-                        Platform(300, 240, 220, 10, 1)
+                        Platform(350, 210, 50, 10, 1),
+                        Platform(400, 180, 50, 10, 1),
                     ],
                     'walls':[]
                 },
                 'BLACK':{
                     'platforms':[
                         # a half black platform in the center
-                        Platform(100, 240, 220, 10, 1)
+                        Platform(320, 240, 220, 10, 0),
+                        # some higher platforms
+                        Platform(250, 210, 50, 10, 0),
+                        Platform(200, 180, 50, 10, 0),
                     ],
                     'walls':[]
                 },
                 "BUTTONS":[
-                    Button(310, 235, 40, 5, 1),
+                    Button(300, 235, 40, 5, 1),
+                    # these buttons will appear after each other are pressed
+                    Button(205, 175, 40, 5, 2, 1),
+                    Button(405, 175, 40, 5, 3, 2),
+                    Button(255, 205, 40, 5, 4, 3),
                 ],
                 'GOAL':{
                     'x':5,
@@ -293,7 +301,48 @@ class Levels():
                     'group':4
                 },
                 'SPAWN':[
-                    20, 300
+                    150, 100
+                ]
+            },
+
+            # Level Seven
+            7: {
+                'SETUP':{
+                    'canFlip':True,
+                    'hasNextLevel':True,
+                    'usesGroups':True
+                },
+                'DECOR':[
+                    Text("whatever you do, do not touch red.", 8, 5, 1),
+                    Text("you will die.", 8, 37, 1),
+                    # die
+                    DeathObject(540, 200, 100, 10)
+                ],
+                'WHITE':{
+                    'platforms':[
+                        # a half white platform in the center
+                        Platform(100, 200, 440, 10, 1),
+                    ],
+                    'walls':[]
+                },
+                'BLACK':{
+                    'platforms':[
+                        
+                    ],
+                    'walls':[]
+                },
+                "BUTTONS":[
+                    
+                ],
+                'GOAL':{
+                    'x':5,
+                    'y':240,
+                    'w':50,
+                    'h':10,
+                    'group':4
+                },
+                'SPAWN':[
+                    150, 100
                 ]
             }
         }
