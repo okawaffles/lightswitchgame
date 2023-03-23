@@ -58,8 +58,7 @@ class Levels():
                 },
                 'DECOR':[
                     Text("press the left and right arrow to move", 8, 5, 1),
-                    Text("get to the green platform to move on.", 8, 37, 1),
-                    ImageObject('./assets/coconut.jpg', 100, 100, 50, 50)
+                    Text("get to the green platform to move on.", 8, 37, 1)
                 ],
                 'WHITE':{
                     'platforms':[
@@ -101,6 +100,9 @@ class Levels():
                     Text("black passes through black,", 8, 37, 1),
                     Text("white passes through white,", 8, 69, 1),
                     Text("you can't pass through grey.", 8, 101, 1),
+
+                    ImageObject('./assets/coconut.jpg', 100, 200, 50, 50),
+                    Text("this is a coconut", 8, 250, 1)
                 ],
                 'WHITE':{
                     'platforms':[
@@ -250,6 +252,48 @@ class Levels():
                 },
                 'SPAWN':[
                     20, 200
+                ]
+            },
+
+            # Level Six
+            6: {
+                'SETUP':{
+                    'canFlip':True,
+                    'hasNextLevel':True,
+                    'usesGroups':True
+                },
+                'DECOR':[
+                    Text("i really like buttons", 8, 5, 1),
+                    Text("push them all. now.", 8, 37, 1)
+                ],
+                'WHITE':{
+                    'platforms':[
+                        # a half white platform in the center
+                        Platform(100, 240, 440, 10, 1),
+                        # some higher platforms
+                        Platform(300, 240, 220, 10, 1)
+                    ],
+                    'walls':[]
+                },
+                'BLACK':{
+                    'platforms':[
+                        # a half black platform in the center
+                        Platform(100, 240, 220, 10, 1)
+                    ],
+                    'walls':[]
+                },
+                "BUTTONS":[
+                    Button(310, 235, 40, 5, 1),
+                ],
+                'GOAL':{
+                    'x':5,
+                    'y':240,
+                    'w':50,
+                    'h':10,
+                    'group':4
+                },
+                'SPAWN':[
+                    20, 300
                 ]
             }
         }

@@ -17,13 +17,18 @@ try:
     from gamePartsPlatformer import Platform, Wall, Text, GoalPoint
     from gamePartsPlayer import Player
     from gamePartsLevelStorage import Levels
-    pygame.image.load(os.path.join('assets', 'coconut.jpg'))
 except:
     print("You are missing critical components. Please make sure that gamePartsPlatformer.py, gamePartsLevelStorage.py, gamePartsPlayer.py, and the assets folder are all present in the same directory as main.py");
     sys.exit(-1)
 
 # clear out any "running the wrong file" warning messages.
 print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nYou are running the correct file.")
+
+try:
+    pygame.image.load(os.path.join('assets', 'coconut.jpg'))
+except:
+    print("You are missing coconut.jpg. I told you it was important.")
+    sys.exit(-1);
 
 # set up pygame
 pygame.init()
@@ -37,10 +42,11 @@ main = 0
 screen = 0
 
 if fullscreenOn:
+    # fullscreen is never used.
     screen = pygame.Surface(winSize)
     main = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN)
 else:
-    screen = pygame.display.set_mode(winSize, pygame.NOFRAME)
+    screen = pygame.display.set_mode(winSize)
 
 # 3/4 of these aren't even used. but here's some basic colors.
 colors = {
@@ -111,7 +117,7 @@ while True:
     if keys[pygame.K_RIGHT]:
         player.updatePosition(3, 0)
     if keys[pygame.K_ESCAPE]:
-        print(f"(debug) HTE key [ESC] held | {g_escapeFrames} / 60")
+        print(f"(debug) HTE key [ESC] held | {g_escapeFrames} / 30")
         g_escapeFrames += 1
         Text(f"EXIT... {round((g_escapeFrames/30) * 100)}%", 3, 410, 1, False).draw(screen, {})
         if g_escapeFrames > 30:

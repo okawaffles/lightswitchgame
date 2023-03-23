@@ -66,13 +66,17 @@ class Text():
     def draw(self, screen: pygame.surface, groups: dict) -> None:
         if self.state == 0:
             self.textObj = self.font.render(self.text, True, pygame.Color(0, 0, 0))
+            self.bgTextObj = self.font.render(self.text, True, pygame.Color(200,200,200))
         elif self.state == 1:
             self.textObj = self.font.render(self.text, True, pygame.Color(255, 255, 255))
+            self.bgTextObj = self.font.render(self.text, True, pygame.Color(50,50,50))
 
         r = self.textObj.get_rect()
         r.x = self.x
         r.y = self.y
 
+        # render a background color to make text pop a bit
+        screen.blit(self.bgTextObj, (r.x + 3, r.y + 3))
         screen.blit(self.textObj, r)
 
 
@@ -92,20 +96,32 @@ class GoalPoint():
 
 
 class Button():
-    def __init__(self, x,y,w,h, controlsGroup: int) -> None:
+    def __init__(self, x,y,w,h, controlsGroup: int, controlledByGroup: int = -1) -> None:
         self.base = pygame.Rect(x,y,w,h)
         self.cg = controlsGroup
         self.activated = False
+        self.controlledBy = controlledByGroup
         pass
 
     def draw(self, screen: pygame.surface, groups: dict) -> None:
         blue = pygame.Color(3, 36, 252, 150)
         green = pygame.Color(49, 214, 101, 150)
-        if self.activated == False:
-            pygame.draw.rect(screen, blue, self.base)
+
+        if (self.controlledBy == -1):
+            #groups are disabled
+            if self.activated == False:
+                pygame.draw.rect(screen, blue, self.base)
+            else:
+                pygame.draw.rect(screen, green, self.base)
+            pass
         else:
-            pygame.draw.rect(screen, green, self.base)
-        pass
+            #groups are enabled
+            if (groups[self.controlledBy]):
+                if self.activated == False:
+                    pygame.draw.rect(screen, blue, self.base)
+                else:
+                    pygame.draw.rect(screen, green, self.base)
+                pass
 
     def getRect(self) -> pygame.Rect:
         return self.base
