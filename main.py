@@ -68,7 +68,7 @@ gravity = 0.5  # force of gravity
 max_vel_y = 10  # maximum vertical velocity
 collides = False
 levels = Levels()
-levelId = 7
+levelId = 8
 groupEnabled = 0 # i dont know if this is required
 currentLevel = levels.get(levelId)
 currentLevelGroups = [ # allow for five button groups
@@ -78,6 +78,8 @@ hearts = 3
 # set the start point
 player.updatePosition(currentLevel['SPAWN'][0], currentLevel['SPAWN'][1])
 g_escapeFrames = 0
+coyoteTimeTick = 0
+clock = pygame.time.Clock()
 
 while True:
     for event in pygame.event.get():
@@ -86,8 +88,9 @@ while True:
 
         # check jump and swap keys
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP and collides:
+            if event.key == pygame.K_UP and (collides or coyoteTimeTick <= 10):
                 # set our variables so the player jumps (experiences reverse velocity)
+                coyoteTimeTick = 100 # disable coyote time
                 player_vel_y = -5
                 player.updatePosition(0, -10)
             if event.key == pygame.K_SPACE and currentLevel['SETUP']['canFlip']:
@@ -217,8 +220,10 @@ while True:
     if (not collides):
         player.updatePosition(0, player_vel_y)
         player_vel_y += gravity
+        coyoteTimeTick += 1
     else:
         player_vel_y = 0
+        coyoteTimeTick = 0
 
     # check if the player is touching the goal
     if player.collides(goalPoint.getRect(), False) and currentLevel['SETUP']['hasNextLevel']:
@@ -261,6 +266,7 @@ while True:
         player.setPosition(currentLevel['SPAWN'][0], currentLevel['SPAWN'][1])
         player.setState(0)
         state = 0
+        player_vel_y = 0
         hearts -= 1
         currentLevelGroups = [False,False,False,False,False]
 
@@ -274,6 +280,9 @@ while True:
         guihearts = Text("Œ § §", 5, 450, 1, True).draw(screen, {})
     else:
         guihearts = Text("§ § §", 5, 450, 1, True).draw(screen, {})
+
+    # display FPS
+    Text(f"{round(clock.get_fps())}fps", 575, 3, 1, False).draw(screen, {})
 
     # IMPORTANT: blit the current frame so we can actually see it
     # this expands the screen to be fullscreen
@@ -308,4 +317,5 @@ while True:
     
 
     # keep last. locks to 60fps to prevent over-using cpu
-    time.sleep(1/60)
+    clock.tick()
+    time.sleep(1/80)

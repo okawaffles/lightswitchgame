@@ -14,6 +14,7 @@ class Levels():
         # SETUP = settings to change what the player can do
         self.levels = {
             # This "level" uses every object to test if they're working
+            # well, it did before i neglected it
             'TEST':{
                 'DECOR':[
                     Text("test level", 5, 5, 1),
@@ -84,7 +85,7 @@ class Levels():
 
                 ],
                 'SPAWN':[
-                    50, 50
+                    50, 200
                 ]
             },
 
@@ -319,7 +320,7 @@ class Levels():
                 'WHITE':{
                     'platforms':[
                         # a half white platform in the center
-                        Platform(100, 200, 50, 10, 1),
+                        Platform(25, 200, 125, 10, 1),
                         Platform(175, 200, 50, 10, 1),
                         Platform(250, 200, 50, 10, 1),
                         Platform(325, 200, 50, 10, 1),
@@ -350,6 +351,52 @@ class Levels():
                 },
                 'SPAWN':[
                     75, 100
+                ]
+            },
+
+            # Level Eight
+            8: {
+                'SETUP':{
+                    'canFlip':True,
+                    'hasNextLevel':True,
+                    'usesGroups':False,
+                    'usesCustomGroupSet':True,
+                    'currentLevelGroups':[ # allow for five button groups
+                        False, False, False, False, False
+                    ]
+                },
+                'DECOR':[
+                    Text("this is a reverse button", 8, 5, 1),
+                    Text("it will remove an object from the level.", 8, 37, 1),
+                ],
+                'WHITE':{
+                    'platforms':[
+                        # a half white platform in the center
+                        Platform(25, 300, 590, 10, 1),
+                    ],
+                    'walls':[]
+                },
+                'BLACK':{
+                    'platforms':[
+                        
+                    ],
+                    'walls':[]
+                },
+                "BUTTONS":[
+                    Button(125, 295, 50, 5, 1, -1, True)
+                ],
+                'DEATHOBJECTS':[
+                    # die
+                    DeathObject(315, 100, 10, 200),
+                ],
+                'GOAL':{
+                    'x':400,
+                    'y':300,
+                    'w':50,
+                    'h':10
+                },
+                'SPAWN':[
+                    15, 250
                 ]
             }
         }
