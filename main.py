@@ -146,7 +146,10 @@ while True:
             b.checkCollision(player)
             # update groups if button pushed
             buttonData = b.getData()
-            currentLevelGroups[buttonData["controls"]] = buttonData["activated"]
+            if not buttonData["reversed"]:
+                currentLevelGroups[buttonData["controls"]] = buttonData["activated"]
+            else:
+                currentLevelGroups[buttonData["controls"]] = not buttonData["activated"]
     except Exception as e:
         print(f"(debug) caught exception! {e}")
         pass
@@ -199,6 +202,16 @@ while True:
         player.collides(w.getRect(), True)
     for w in currentLevel["BLACK"]['walls']:
         player.collides(w.getRect(), True)
+
+    # this draws and checks DeathObject collision. they kill the player if they are touched
+    try:
+        for o in currentLevel["DEATHOBJECTS"]:
+            o.draw(screen, currentLevelGroups)
+            if player.collides(o.getRect()):
+                player.updatePosition(0, 480)
+    except:
+        # ignore if theres no deathobjects category in leveldata
+        pass
 
     # update the player's velocity if they don't collide.
     if (not collides):

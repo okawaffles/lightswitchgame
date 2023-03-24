@@ -308,20 +308,21 @@ class Levels():
             # Level Seven
             7: {
                 'SETUP':{
-                    'canFlip':True,
+                    'canFlip':False,
                     'hasNextLevel':True,
-                    'usesGroups':True
+                    'usesGroups':False
                 },
                 'DECOR':[
                     Text("whatever you do, do not touch red.", 8, 5, 1),
                     Text("you will die.", 8, 37, 1),
-                    # die
-                    DeathObject(540, 200, 100, 10)
                 ],
                 'WHITE':{
                     'platforms':[
                         # a half white platform in the center
-                        Platform(100, 200, 440, 10, 1),
+                        Platform(100, 200, 50, 10, 1),
+                        Platform(175, 200, 50, 10, 1),
+                        Platform(250, 200, 50, 10, 1),
+                        Platform(325, 200, 50, 10, 1),
                     ],
                     'walls':[]
                 },
@@ -334,15 +335,21 @@ class Levels():
                 "BUTTONS":[
                     
                 ],
+                'DEATHOBJECTS':[
+                    # die
+                    DeathObject(150, 205, 25, 5),
+                    DeathObject(225, 205, 25, 5),
+                    DeathObject(300, 205, 25, 5),
+                    DeathObject(375, 205, 25, 5),
+                ],
                 'GOAL':{
-                    'x':5,
-                    'y':240,
+                    'x':400,
+                    'y':200,
                     'w':50,
-                    'h':10,
-                    'group':4
+                    'h':10
                 },
                 'SPAWN':[
-                    150, 100
+                    75, 100
                 ]
             }
         }

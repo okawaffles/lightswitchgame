@@ -96,11 +96,12 @@ class GoalPoint():
 
 
 class Button():
-    def __init__(self, x,y,w,h, controlsGroup: int, controlledByGroup: int = -1) -> None:
+    def __init__(self, x,y,w,h, controlsGroup: int, controlledByGroup: int = -1, _reversed: bool = False) -> None:
         self.base = pygame.Rect(x,y,w,h)
         self.cg = controlsGroup
         self.activated = False
         self.controlledBy = controlledByGroup
+        self.reversed = _reversed # reversed is a keyword ;-;"
         pass
 
     def draw(self, screen: pygame.surface, groups: dict) -> None:
@@ -154,7 +155,8 @@ class Button():
     def getData(self) -> dict:
         return {
             'controls':self.cg,
-            'activated':self.activated
+            'activated':self.activated,
+            'reversed':self.reversed
         }
 
 class ImageObject():
@@ -185,6 +187,10 @@ class DeathObject():
         red = pygame.Color(207, 41, 41, 255)
         pygame.draw.rect(screen, red, self.base)
         pass
+
+    def getRect(self) -> pygame.rect:
+        return self.base
+    
 
 # catch if the user starts the wrong file
 print("""
