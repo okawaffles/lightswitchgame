@@ -235,6 +235,13 @@ while True:
                 try:
                     currentLevel = levels.get(levelId)
                     player.setPosition(currentLevel['SPAWN'][0], currentLevel['SPAWN'][1])
+                    currentLevelGroups = [False,False,False,False,False]
+                    try:
+                        if currentLevel["SETUP"]["usesCustomGroupSet"]:
+                            currentLevelGroups = currentLevel["SETUP"]["usesCustomGroupSet"]
+                    except:
+                        pass
+
                 except KeyError as err:
                     print("(debug) Error whilst loading next level (level does not exist)\n(debug) The game cannot continue.")
                     sys.exit()

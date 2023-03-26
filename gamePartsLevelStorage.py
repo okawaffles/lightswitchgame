@@ -387,7 +387,7 @@ class Levels():
                 ],
                 'DEATHOBJECTS':[
                     # die
-                    DeathObject(315, 100, 10, 200),
+                    DeathObject(315, 100, 10, 200, 1),
                 ],
                 'GOAL':{
                     'x':400,

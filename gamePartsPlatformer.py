@@ -175,17 +175,23 @@ class ImageObject():
         pass
 
 class DeathObject():
-    def __init__(self, x, y, w, h) -> None:
+    def __init__(self, x, y, w, h, controlledBy: int = -1) -> None:
         self.x = x
         self.y = y
         self.w = w
         self.h = h
         self.base = pygame.Rect(x,y,w,h)
+        self.cb = controlledBy
         pass
 
     def draw(self, screen: pygame.surface, groups: dict):
         red = pygame.Color(207, 41, 41, 255)
-        pygame.draw.rect(screen, red, self.base)
+        if self.cb == -1:
+            # groups are disabled
+            pygame.draw.rect(screen, red, self.base)
+        else:
+            if groups[self.cb]:
+                pygame.draw.rect(screen, red, self.base)
         pass
 
     def getRect(self) -> pygame.rect:
