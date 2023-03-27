@@ -383,7 +383,7 @@ class Levels():
                     'walls':[]
                 },
                 "BUTTONS":[
-                    Button(125, 295, 50, 5, 1, -1, True)
+                    Button(125, 295, 35, 5, 1, -1, True)
                 ],
                 'DEATHOBJECTS':[
                     # die
@@ -396,7 +396,54 @@ class Levels():
                     'h':10
                 },
                 'SPAWN':[
-                    15, 250
+                    50, 200
+                ]
+            },
+
+            # Level Nine
+            9: {
+                'SETUP':{
+                    'canFlip':True,
+                    'hasNextLevel':True,
+                    'usesGroups':False,
+                    'usesCustomGroupSet':False,
+                    'currentLevelGroups':[]
+                },
+                'DECOR':[
+                    Text("make your way to the goal.", 8, 5, 1),
+                    Text("good luck!", 8, 37, 1),
+                ],
+                'WHITE':{
+                    'platforms':[
+                        Platform(0, 175, 200, 10, 1),
+                        Platform(0, 105, 50, 10, 1),
+                        Platform(70, 105, 50, 10, 1),
+                    ],
+                    'walls':[]
+                },
+                'BLACK':{
+                    'platforms':[
+                        Platform(0, 140, 50, 10, 0)
+                    ],
+                    'walls':[]
+                },
+                "BUTTONS":[
+                    Button(75, 100, 40, 5, 1, -1, True)
+                ],
+                'DEATHOBJECTS':[
+                    # group -1
+                    DeathObject(0, 185, 200, 5, -1),
+                    # group 1
+                    DeathObject(200, 35, 10, 150, 1),
+                ],
+                'GOAL':{
+                    'x':400,
+                    'y':300,
+                    'w':50,
+                    'h':10
+                },
+                'SPAWN':[
+                    50, 100
                 ]
             }
         }

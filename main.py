@@ -68,7 +68,7 @@ gravity = 0.5  # force of gravity
 max_vel_y = 10  # maximum vertical velocity
 collides = False
 levels = Levels()
-levelId = 8
+levelId = 9
 groupEnabled = 0 # i dont know if this is required
 currentLevel = levels.get(levelId)
 currentLevelGroups = [ # allow for five button groups
@@ -210,8 +210,15 @@ while True:
     try:
         for o in currentLevel["DEATHOBJECTS"]:
             o.draw(screen, currentLevelGroups)
-            if player.collides(o.getRect()):
-                player.updatePosition(0, 480)
+            if o.cb == -1:
+                if player.collides(o.getRect()):
+                    player.updatePosition(0, 480)
+            elif o.cb != -1 and currentLevelGroups[o.cb]:
+                if player.collides(o.getRect()):
+                    player.updatePosition(0, 480)
+            else:
+                # do nothing
+                pass
     except:
         # ignore if theres no deathobjects category in leveldata
         pass
@@ -270,12 +277,18 @@ while True:
 
     # check if the player is offscreen on the bottom
     if player.getPosition()['y'] > 480:
+        currentLevel = levels.get(levelId)
         player.setPosition(currentLevel['SPAWN'][0], currentLevel['SPAWN'][1])
         player.setState(0)
         state = 0
         player_vel_y = 0
         hearts -= 1
-        currentLevelGroups = [False,False,False,False,False]
+        for b in currentLevel["BUTTONS"]:
+            b.activated = False
+        if currentLevel['SETUP']['usesCustomGroupSet']:
+            currentLevelGroups = currentLevel['SETUP']['currentLevelGroups']
+        else:
+            currentLevelGroups = [False,False,False,False,False]
 
     # GUI elements
     guilives = Text("Lives:", 2, 430, 1, False).draw(screen, {})
