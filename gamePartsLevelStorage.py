@@ -418,17 +418,24 @@ class Levels():
                         Platform(0, 175, 200, 10, 1),
                         Platform(0, 105, 50, 10, 1),
                         Platform(70, 105, 50, 10, 1),
+
+                        Platform(300, 235, 50, 10, 1),
+                        Platform(300, 165, 50, 10, 1),
                     ],
                     'walls':[]
                 },
                 'BLACK':{
                     'platforms':[
-                        Platform(0, 140, 50, 10, 0)
+                        Platform(0, 140, 50, 10, 0),
+                        Platform(50, 235, 200, 10, 0),
+
+                        Platform(300, 200, 50, 10, 0),
                     ],
                     'walls':[]
                 },
                 "BUTTONS":[
-                    Button(75, 100, 40, 5, 1, -1, True)
+                    Button(75, 100, 40, 5, 1, -1, True),
+                    Button(55, 230, 40, 5, 2, -1, True),
                 ],
                 'DEATHOBJECTS':[
                     # group -1
@@ -443,7 +450,7 @@ class Levels():
                     'h':10
                 },
                 'SPAWN':[
-                    50, 100
+                    100, 90
                 ]
             }
         }

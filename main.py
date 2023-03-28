@@ -245,7 +245,7 @@ while True:
                     currentLevelGroups = [False,False,False,False,False]
                     try:
                         if currentLevel["SETUP"]["usesCustomGroupSet"]:
-                            currentLevelGroups = currentLevel["SETUP"]["usesCustomGroupSet"]
+                            currentLevelGroups = currentLevel["SETUP"]["currentLevelGroups"]
                     except:
                         pass
 
@@ -285,10 +285,13 @@ while True:
         hearts -= 1
         for b in currentLevel["BUTTONS"]:
             b.activated = False
-        if currentLevel['SETUP']['usesCustomGroupSet']:
-            currentLevelGroups = currentLevel['SETUP']['currentLevelGroups']
-        else:
-            currentLevelGroups = [False,False,False,False,False]
+        try:
+            if currentLevel['SETUP']['usesCustomGroupSet']:
+                currentLevelGroups = currentLevel['SETUP']['currentLevelGroups']
+            else:
+                currentLevelGroups = [False,False,False,False,False]
+        except KeyError:
+            pass
 
     # GUI elements
     guilives = Text("Lives:", 2, 430, 1, False).draw(screen, {})
